@@ -312,7 +312,7 @@ function woocommerce_ktpay_init()
             $total = KTPayConfig::calculate_total_price($order->get_total(), $this->rates,  $installment);
             $order->set_total($total);
             $currency = KTPayConfig::get_currency_code($order->get_currency());
-            $is3dTransaction=($this->td_mode == 'on') || ($this->td_mode =='off' && $total>$this->td_overamount);
+            $is3dTransaction=($this->td_mode == 'on') || ($this->td_overamount!=null && $this->td_mode =='off' && $total>$this->td_overamount);
 
             $ktpay = new KTPay();
             $params = array(
