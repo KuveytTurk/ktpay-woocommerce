@@ -47,37 +47,43 @@ class KTPayConfig{
 
     public static function create_rates_update_form($rates, $installment_array)
     {
-        $return = '<table>'
+        $installment_form = '<table style="text-align: center;">'
             . '<thead><tr>';
         foreach ($installment_array as $i) {
-            $return .= '<th>' . $i . ' taksit</th>';
+            $installment_form .= '<th>' . $i . ' Taksit</th>';
         }
-        $return .= '</tr></thead><tbody><tr>';
+        $installment_form .= '</tr></thead><tbody><tr>';
         for ($i = 1; $i <= count($installment_array); $i++) {
-            $return .= '<td>'
+            $installment_form .= '<td>'
                 . ' <input type="checkbox"  name="kt_pay_rates[' . $i . '][active]" '
-                . ' value="1" ' . ((int) $rates[$i]['active'] == 1 ? 'checked="checked"' : '') . '/>'
-                . '<input type="number" step="0.01" maxlength="4" size="4" style="width:60px" '
-                . ((int) $rates[$i]['active'] == 0 ? 'disabled="disabled"' : '')
+                . ' value="1" ' . ((int) $rates[$i]['active'] == 1 ? 'checked="checked"' : '') . '/></td>';
+        }
+
+        $installment_form.='</tr><tr>';
+
+        for ($i = 1; $i <= count($installment_array); $i++) {
+            $installment_form .= '<td>'               
+                . '%<input type="number" step="0.01" maxlength="4" size="4" style="width:60px" '
+                . ($i == 1 ? ' disabled' : '')
                 . ' value="' . ((float) $rates[$i]['value']) . '"'
                 . ' name="kt_pay_rates[' . $i . '][value]"/></td>';
         }
 
-        $return .= '</tr></tbody></table>';
-        return $return;
+        $installment_form .= '</tr></tbody></table>';
+        return $installment_form;
     }
 
     public static function calculate_price_with_installments($price, $rates, $installment_array)
     {
-        $return = array();
+        $installment = array();
         for ($i = 1; $i <= count($installment_array); $i++) {
-            $return[$i] = array(
+            $installment[$i] = array(
                 'active' => isset($rates[$i]['active']) ? $rates[$i]['active'] : 0,
                 'total' => number_format((((100 + (isset($rates[$i]['value']) ? $rates[$i]['value'] : 0)) * $price) / 100), 2, '.', ''),
                 'monthly' => number_format((((100 + (isset($rates[$i]['value']) ? $rates[$i]['value'] : 0)) * $price) / 100) / $i, 2, '.', ''),
             );
         }
-        return $return;
+        return $installment;
     }
 
     public static function calculate_total_price($price, $rates, $installment)
