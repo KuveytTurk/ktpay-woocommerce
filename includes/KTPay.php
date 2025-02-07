@@ -43,7 +43,6 @@ class KTPay
 
     public function set_payment_params($params)
     {
-        $this->environment = $params['environment'];
         $this->merchant_id = $params['merchant_id'];
         //$this->pos_terminal_id = $params['pos_terminal_id'];
         $this->customer_id = $params['customer_id'];
@@ -82,6 +81,7 @@ class KTPay
         $this->merchant_order_id = $params['merchant_order_id'];
         $this->order_id = $params['order_id'];
         $this->md = $params['md'];
+        $this->environment = $params['environment'];
         
         $amount=$params['amount']*100;
         $amount=str_replace(',','',$amount);
