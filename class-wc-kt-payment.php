@@ -241,6 +241,7 @@ function woocommerce_ktpay_init()
             $order = new WC_Order($orderid);
 
             $bodyParams=array(
+                'environment' => $this->settings['environment'],
                 'md'=>(isset($postParams['Result_MD'])) ? $postParams['Result_MD'] : "",
                 'merchant_id'=>$this->settings['merchant_id'],
                 'customer_id' =>$this->settings['customer_id'],
@@ -315,8 +316,7 @@ function woocommerce_ktpay_init()
             $is3dTransaction=($this->td_mode == 'on') || ($this->td_overamount!=null && $this->td_mode =='off' && $total>$this->td_overamount);
 
             $ktpay = new KTPay();
-            $params = array(
-                'environment'=> $this->environment,
+            $params = array(               
                 'merchant_id' => $this->merchant_id,
                 'customer_id' => $this->customer_id,
                 'api_user_name' => $this->api_username,
