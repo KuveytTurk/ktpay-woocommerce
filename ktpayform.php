@@ -75,7 +75,7 @@ if (!defined('ABSPATH')) {
                             style="display: none; width: 60px; margin-right: 40px; position: absolute; top: 2px; right: 10px"
                             class="max-w-16 mt-4" alt="" />
                         <img id="masterCardScheme"
-                            src="<?php echo plugins_url('/kt-payment-module/assets/img/mastercard.svg', dirname(path: __FILE__)) ?>"
+                            src="<?php echo plugins_url('/kt-payment-module/assets/img/mastercard.svg', dirname(__FILE__)) ?>"
                             loading="lazy"
                             style="display: none; width: 50px; margin-right: 40px; position: absolute; top: 2px; right: 10px"
                             class="max-w-12 mt-4" alt="" />
