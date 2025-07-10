@@ -281,7 +281,7 @@ class KTPay
         
             if($response['success'] && $response['data']['success'])
             {
-                if(count($response['data']['success'])> 0)
+                if(count($response['data']['value'])> 0)
                 {
                     KTPayConfig::update_all_installments($response['data']['value']);
                     header("Refresh:0");
